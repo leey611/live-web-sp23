@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    
+    <title>Gallery</title>
+</head>
+<style>
+    * {
+        margin: 0;
+    }
+    body {
+        background-color: #E5E5E5;;
+        display: grid;
+        grid-template-columns: repeat(4, 25%);
+    }
+    img {
+        display: block;
+        width: 100%;
+    }
+</style>
+<body>
+    <script>
+        let socket = io.connect();
+        socket.on('connect', function() {
+            socket.emit('enterGallery', {})
+	        console.log("enter gallery " + socket.id);
+        });
+        socket.on('sendImage', function(data) {
+            const { image64 } = data
+            const img = new Image()
+            img.src = image64
+            document.body.appendChild(img)
+        })
+        socket.on('enterGallery', function(data) {
+            const { images } = data
+            for(let image64 of images) {
+                const img = new Image()
+                img.src = image64
+                document.body.appendChild(img)
+            }
+        })
+    </script>
+</body>
+</html>

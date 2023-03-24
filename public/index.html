@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/addons/p5.sound.min.js"></script>
+	<link rel="stylesheet" href="main.css">
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/addons/p5.sound.min.js"></script> -->
+	<title>Document</title>
+</head>
+
+<body>
+	<div id="container">
+		<div id="headingGrid">
+			<div id="heading" class="draggable"></div>
+		</div>
+
+			<section id="charsets" class="draggable">
+				<header>Char Sets</header>
+				<div>
+					<div class="charset">._▂▃▄▅▆▇ ░▒▓█ ▊▋▌▍▎▏</div>
+					<div class="charset"> ▗A▘0▜B▟1▙C▄2▀D▐3▌E▞4▚F▝5"</div>
+					<div class="charset"> ▗▘▜▟▙▄▀▐▌▞▚▝▖▛█</div>
+					<div class="charset">┃━┏┓┗┛┣┫┳┻╋</div>
+					<div class="charset">!"#$%&'()*+,-./</div>
+					<div class="charset">ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏ</div>
+				</div>
+			</section>
+
+		
+	
+		
+		<!-- <form id="nameForm">
+			<input type="text" id="username" name="username">
+			<input type="submit" value="confirm name">
+		</form>
+	
+		<div id="messages">
+			No Messages Yet
+		</div>
+	
+		<form id="messageForm">
+			<input type="text" id="message" name="message">
+			<input type="submit" value="submit" id="sendChatBtn">
+		</form> -->
+		<!-- <input type="text" id="message" name="message">
+		 <input type="submit" value="submit" id="sendChatBtn"> -->
+		<!-- <script src="sketch.js"></script> -->
+		<!-- <script type="text/javascript">
+	
+		</script> -->
+		
+		<section id="instruction" class="draggable">
+			<header>Instruction</header>
+			<div>This is a collaborative multiuser sketch. You have been assigned a random character once you enter the website, and you will user the character to paint by clicking and dragging the mouse on the canvas. You can select a new character by clicking the characters in the Char Set window. Have fun! </div>
+			
+		</section>
+		
+			<section id="currentChar" class="draggable">
+				<header>Your Char</header>
+				<div id="userChar"></div>
+			</section>
+	
+		
+		<div id="gameGrid">
+			<section class="draggable" id="gameBox">
+				<header>canvas</header>
+				<div id="gameCanvas"></div>
+				<div>
+					<span><button id="sendImageBtn">Send to Gallery</button></span>
+					<span><a href="/gallery.html">Gallery</a></span>
+				</div>
+				
+			</section>
+		</div>
+		
+	</div>
+
+	<script src="script.js"></script>
+	<script src="game.js"></script>
+</body>
+
+</html>
