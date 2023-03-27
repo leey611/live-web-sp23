@@ -55,10 +55,23 @@ const io = new Server(httpServer, {});
 
 // save user names
 let users = {}
+// variables for real-time canvas
 let socketCards = {}
 // images for gallery
 let images = []
 
+// variables for live-web-comic
+let comicUsers = [] // { id, captureImg64}
+let comicImages = []
+const comicPrompts = [`A Man and His Cupcake
+					   A man walked into a bakery and saw a delicious-looking cupcake. He bought it, but as he was walking out,
+					    he accidentally dropped it on the ground.`,
+					  `A Pigeon and His Opportunity
+					  A nearby pigeon saw the dropped cupcake and eagerly hopped over to investigate.`,
+					  `The Man and the Pigeon's Disappointment
+					  The man quickly picked up the cupcake before the pigeon could grab it. The pigeon looked up at the man with sad, pleading eyes.`,
+					  `The Man's Unexpected Move
+					  Feeling bad for the pigeon, the man decided to give it the cupcake. The pigeon happily flew away with the cupcake in its beak, while the man was left standing there, empty-handed and confused.`]
 
 
 // Register a callback function to run when we have an individual connection
@@ -73,7 +86,10 @@ io.sockets.on('connection',
 		console.log("We have a new client: " + socket.id);
 		//socket.broadcast.emit('userConnect', {id: socket.id});
 		socket.on('connect', function() {
+			console.log('sth connect')
 			socket.broadcast.emit('enterGame', socketCards)
+			let bothRole = comicUsers.length < 4
+			socket.broadcast.emit('enterComic', { bothRole })
 			//socket.broadcast.emit('userConnect', {id: socket.id});
 		})
 
@@ -121,7 +137,55 @@ io.sockets.on('connection',
 			images.push(data.image64)
 			io.emit('sendImage', data)
 		})
+
+		// for live-web-comic
+		socket.on('enterComic', function() {
+			let bothRole = comicUsers.length < 4
+			console.log('bothRole ', bothRole)
+			io.emit('enterComic', { bothRole, comicUsers })
+		})
 		
+		socket.on('chooseRole', function(data) {
+			const { role } = data
+			let prompt
+			// if user choose character, push to comicUsers
+			if (role === 'character') {
+				prompt = comicPrompts[comicUsers.length]
+				comicUsers.push({ id: socket.id})
+				
+			}
+			let bothRole = comicUsers.length < 4
+			socket.emit('chooseRole', { role, comicUsers, prompt })
+			io.emit('enterComic', { bothRole, comicUsers})
+			// if comicUsers.length < 4, 
+			// if comicUsers >= 4, users can only be viewer
+		})
+
+		socket.on('sendComic', function(data) {
+			const { image64, prompt } = data
+			if (comicImages.length < 4) {
+				comicImages.push(data.image64)
+				io.emit('sendComic', {index: comicImages.length, image64, prompt})
+				if (comicImages.length === 4) {
+					io.emit('storyTime', {})
+				}
+			} 
+			
+			
+		})
+
+		socket.on('captureRole', function() {
+
+		})
+
+		socket.on('confirmRole', function() {
+
+		})
+
+		socket.on('playStory', function() {
+
+		})
+
 		socket.on('disconnect', function() {
 			console.log("Client has disconnected " + socket.id);
 		});

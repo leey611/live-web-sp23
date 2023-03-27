@@ -4,9 +4,132 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="../socket.io/socket.io.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/addons/p5.sound.min.js"></script>
     <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+        }
+        section {
+            width: 100vw;
+            height: 100vh;
+            border: 1px solid #000;
+        }
+
+        #videoContainer {
+            display: none;
+        } 
+
+        .light {
+            background: #fff;
+        }
+        .dark {
+            background: repeating-linear-gradient(
+                45deg,
+                firebrick,
+                firebrick 2px,
+                transparent 2px,
+                transparent 8px,
+                firebrick 8px,
+                firebrick 6px
+            ),
+            repeating-linear-gradient(
+                40deg,
+                firebrick,
+                firebrick 2px,
+                #fff 2px,
+                #fff 8px,
+                firebrick 8px,
+                firebrick 6px
+            );
+            background-position: 50% 50%;
+            animation: bgshift 2s steps(5, end) infinite;
+            @keyframes bgshift {
+                to {
+                    background-position: calc(50% + 50px) calc(50% + 20px);
+                }
+            }
+        
+        }
+        .dark:before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: navy;
+            mix-blend-mode: lighten;
+        }
+        .mid {
+            background: dodgerblue;
+        }
+    </style>
 </head>
 <body>
-    live web comics
+    <section id="welcome">
+        <h1>Live Web Comic Story</h1>
+        <div>Join as a...</div>
+        <button id="chooseCharacter">character</button>
+        <button id="chooseViewer">viewer</button>
+    </section>
+    <section id="role">
+        <h2>prompt</h2>
+        <h3 id="prompt"></h3>
+        <svg class='frame' width='600px' height='300px' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>
+            <defs>
+                <mask id='myMask'>
+                    <image id='dark' width='100%' height='100%'></image>
+                </mask>
+                <mask id='myMask2'>
+                    <image id='light' width='100%' height='100%'></image>
+                </mask>
+                <mask id='myMask3'>
+                    <image id='mid' width='100%' height='100%'></image>
+                </mask>
+            </defs>
+            <foreignObject class='dark' width='1000px' height='1000px' style='mask:url(#myMask)' xmlns='http://www.w3.org/1999/xhtml'></foreignObject>
+            <foreignObject class='mid' width='1000px' height='1000px' style='mask:url(#myMask3)' xmlns='http://www.w3.org/1999/xhtml'></foreignObject>
+            <foreignObject class='light' width='1000px' height='1000px' style='mask:url(#myMask2)' xmlns='http://www.w3.org/1999/xhtml'></foreignObject>
+        </svg>
+        <div id="videoContainer">
+            <video autoplay="" playsinline=""></video>
+            <canvas id="videoCanvas"></canvas>
+        </div>
+        <button id="captureCharacterBtn">Take a Shot</button>
+        <canvas id="comicCanvas"></canvas>
+    </section>
+    <section id="capture">
+        <div>Capture</div>
+        <svg class='preview' width='600px' height='300px' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>
+            <defs>
+                <mask id='myMask'>
+                    <image id='dark' width='100%' height='100%'></image>
+                </mask>
+                <mask id='myMask2'>
+                    <image id='light' width='100%' height='100%'></image>
+                </mask>
+                <mask id='myMask3'>
+                    <image id='mid' width='100%' height='100%'></image>
+                </mask>
+            </defs>
+            <foreignObject class='dark' width='1000px' height='1000px' style='mask:url(#myMask)' xmlns='http://www.w3.org/1999/xhtml'></foreignObject>
+            <foreignObject class='mid' width='1000px' height='1000px' style='mask:url(#myMask3)' xmlns='http://www.w3.org/1999/xhtml'></foreignObject>
+            <foreignObject class='light' width='1000px' height='1000px' style='mask:url(#myMask2)' xmlns='http://www.w3.org/1999/xhtml'></foreignObject>
+        </svg>
+        <img id="characterImg" src="" alt="">
+        <button id="confirmCaptureBtn">OK</button>
+        <!-- <button>Retry</button> -->
+    </section>
+    <section id="waiting">
+        Waiting for <span id="waiting-ppl">?</span> more shot(s)
+    </section>
+    <section id="story">
+        <div>Story Time!</div>
+        
+
+        
+    </section>
+    <script src="script.js"></script>
 </body>
 </html>

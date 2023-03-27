@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="../socket.io/socket.io.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/addons/p5.sound.min.js"></script>
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+        }
+        section {
+            width: 100vw;
+            height: 100vh;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <section id="welcome">
+        <h1>Live Web Comic Story</h1>
+        <div>Join as a...</div>
+        <button>character</button>
+        <button>viewer</button>
+    </section>
+    <section id="role">
+        <div>prompt</div>
+    </section>
+    <section id="capture">
+        <div>Capture</div>
+        <button>OK</button>
+        <button>Retry</button>
+    </section>
+    <section id="waiting">
+        Waiting for <span id="waiting-ppl">?</span> more shot(s)
+    </section>
+    <section id="story">
+        <div>Story Time!</div>
+    </section>
+    <script src="comic.js"></script>
+</body>
+</html>
