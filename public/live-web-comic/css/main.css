@@ -1,6 +1,9 @@
 * {
     margin: 0;
 }
+body{
+    font-family: 'Nunito Sans', sans-serif;
+}
 section {
     width: 100vw;
     height: 100vh;
@@ -52,4 +55,37 @@ section {
 }
 .mid {
     background: dodgerblue;
+}
+
+.content{
+    margin: 5% 10%;
+    text-align: center;
+}
+
+.headerSpace{
+    padding: 1rem 0rem;
+    font-size: 50px;
+}
+
+.roleBtn{
+    border: white;
+    border-radius: 1rem;
+    background-Color: rgb(107, 206, 255);
+    padding: 1rem;
+    color:white;
+    font-size:30px;
+}
+
+.flexBtn{
+    display:flex;
+    justify-content: space-evenly;
+    /* justify-content: flex-start; */
+    gap:0.5rem;  
+    margin-top: 1rem;
+    padding: 1rem 5%;
+    border:5px solid rgb(36, 138, 255);
+    border-radius: 1rem;
+}
+.text{
+    font-size: 20px;
 }
