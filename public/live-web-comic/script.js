@@ -71,6 +71,7 @@ socket.on('sendComic', function(data) {
     
 
 comicBlock.innerHTML = `
+    <p>When you see your prompt, act it out! Take a picture of your pose.</p>
     <h4>${prompt}</h4>
     <svg class='comicBlock' width='600px' height='300px' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>
         <defs>
