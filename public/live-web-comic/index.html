@@ -7,6 +7,7 @@
     <script type="text/javascript" src="../socket.io/socket.io.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/addons/p5.sound.min.js"></script>
+    <script src="interaction.js"></script>
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,10 +20,12 @@
 
       
         <h1 class="headerSpace">Live Web Comic Story</h1>
+       <p class="text2">This is an interactive comicbook experience.</p>
+       <p class="text">Select if you want to be an actor or viewer.</p>
         <div class="text">Join as a...</div>
         <div class="flexBtn">
-            <button id="chooseCharacter" class="roleBtn">character</button>
-         <button id="chooseViewer" class="roleBtn">viewer</button>
+            <button id="chooseCharacter" onmouseout="characterHelp()" class="roleBtn">Actor</button>
+         <button id="chooseViewer" class="roleBtn">Viewer</button>
         </div>
     </div>
     </section>
@@ -82,7 +85,7 @@
         Waiting for <span id="waiting-ppl">?</span> more shot(s)
     </section>
     <section id="story">
-        <div>Story Time!</div>
+        <h1 class="storyTime">Story Time!</h1>
         
 
         
