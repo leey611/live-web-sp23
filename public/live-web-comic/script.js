@@ -1,5 +1,5 @@
 let socket = io.connect();
-let comicPrompt
+let userPrompt
 const constraints = {
     video: true,
 };
@@ -17,20 +17,51 @@ socket.on('connect', function() {
 
 socket.on('enterComic', function(data) {
     console.log('enterComic Client ', data)
-    let { bothRole } = data
+    let { bothRole, comicImages, comicPrompts } = data
     console.log('bothrole ', bothRole)
     if (bothRole) {
         document.getElementById('chooseCharacter').style.display = 'block'
     } else {
         document.getElementById('chooseCharacter').style.display = 'none'
     }
+
+    // TODO
+    if (comicImages.length) {
+        for(let i = 0; i < comicImages.length; i++) {
+            let comicBlock = document.createElement("div");
+            const index = i + 1
+            const image64 = comicImages[i]
+            const { lightLayer, midLayer, darkLayer } = image64
+            comicBlock.innerHTML = `
+                <h4>${comicPrompts[i]}</h4>
+                <svg class='comicBlock' width='600px' height='300px' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>
+                    <defs>
+                        <mask id='myMask_${index}'>
+                            <image id='dark_${index}' width='100%' height='100%' xlink:href=${darkLayer}></image>
+                        </mask>
+                        <mask id='myMask2_${index}'>
+                            <image id='light_${index}' width='100%' height='100%' xlink:href=${lightLayer}></image>
+                        </mask>
+                        <mask id='myMask3_${index}'>
+                            <image id='mid_${index}' width='100%' height='100%' xlink:href=${midLayer}></image>
+                        </mask>
+                    </defs>
+                    <foreignObject class='dark' width='1000px' height='1000px' style='mask:url(#myMask_${index})' xmlns='http://www.w3.org/1999/xhtml'></foreignObject>
+                    <foreignObject class='mid' width='1000px' height='1000px' style='mask:url(#myMask3_${index})' xmlns='http://www.w3.org/1999/xhtml'></foreignObject>
+                    <foreignObject class='light' width='1000px' height='1000px' style='mask:url(#myMask2_${index})' xmlns='http://www.w3.org/1999/xhtml'></foreignObject>
+                </svg>
+            `
+            document.getElementById('story').appendChild(comicBlock)
+        }
+    }
 })
 
 socket.on('sendComic', function(data) {
     const { image64, index, prompt } = data
-    let myImg = new Image()
-    myImg.src = image64
-    console.log('sendCom ', image64)
+    const { lightLayer, midLayer, darkLayer } = image64
+    // let myImg = new Image()
+    // myImg.src = image64
+    // console.log('sendCom ', image64)
     let comicBlock = document.createElement("div");
 
     
@@ -40,13 +71,13 @@ comicBlock.innerHTML = `
     <svg class='comicBlock' width='600px' height='300px' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>
         <defs>
             <mask id='myMask_${index}'>
-                <image id='dark_${index}' width='100%' height='100%' xlink:href=${image64}></image>
+                <image id='dark_${index}' width='100%' height='100%' xlink:href=${darkLayer}></image>
             </mask>
             <mask id='myMask2_${index}'>
-                <image id='light_${index}' width='100%' height='100%' xlink:href=${image64}></image>
+                <image id='light_${index}' width='100%' height='100%' xlink:href=${lightLayer}></image>
             </mask>
             <mask id='myMask3_${index}'>
-                <image id='mid_${index}' width='100%' height='100%' xlink:href=${image64}></image>
+                <image id='mid_${index}' width='100%' height='100%' xlink:href=${midLayer}></image>
             </mask>
         </defs>
         <foreignObject class='dark' width='1000px' height='1000px' style='mask:url(#myMask_${index})' xmlns='http://www.w3.org/1999/xhtml'></foreignObject>
@@ -54,39 +85,6 @@ comicBlock.innerHTML = `
         <foreignObject class='light' width='1000px' height='1000px' style='mask:url(#myMask2_${index})' xmlns='http://www.w3.org/1999/xhtml'></foreignObject>
     </svg>
 `
-
-
-// comicBlock.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg">
-  
-// <foreignObject width="160" height="160">
-//   <img src="${image64}" alt="Girl in a jacket" width="500" height="600">
-// </foreignObject>
-// </svg>`
-//comicBlock.innerHTML = myImg
-    //document.getElementById('story').appendChild(myImg)
-    
-    //console.log('comicBlock html ',comicBlock.querySelector('.comicBlock #dark'))
-    // comicBlock
-    //     .querySelector(`#light_${index}`)
-    //     .setAttributeNS(
-    //     "http://www.w3.org/1999/xlink",
-    //     "xlink:href",
-    //     image64//videoCanvas.toDataURL("image/jpg")
-    // ); 
-    // comicBlock
-    //     .querySelector(`#mid_${index}`)
-    //     .setAttributeNS(
-    //     "http://www.w3.org/1999/xlink",
-    //     "xlink:href",
-    //     image64//videoCanvas.toDataURL("image/jpg")
-    // ); 
-    // comicBlock
-    //     .querySelector(`#dark_${index}`)
-    //     .setAttributeNS(
-    //     "http://www.w3.org/1999/xlink",
-    //     "xlink:href",
-    //     image64//videoCanvas.toDataURL("image/jpg")
-    // ); 
     document.getElementById('story').appendChild(comicBlock)
     // update how many more shots
     const howManyMore = 4 - index
@@ -104,7 +102,7 @@ socket.on('chooseRole', function(data) {
     if (role === 'character') {
         if (prompt.length) {
             document.getElementById('prompt').innerText = prompt
-            comicPrompt = prompt
+            userPrompt = prompt
         }
         //get user media
         console.log('get user media')
@@ -114,6 +112,8 @@ socket.on('chooseRole', function(data) {
         
     }
 })
+
+let lightLayer, midLayer, darkLayer
 
 function updateCapture() {
     videoCanvas.width = video.videoWidth;
@@ -128,6 +128,8 @@ function updateCapture() {
         "xlink:href",
         videoCanvas.toDataURL("image/png")
     ); // Step 3
+    lightLayer = videoCanvas.toDataURL("image/png")
+
     ctx.filter = "blur(6px) grayscale(100%) brightness(140%) contrast(90)";
     ctx.drawImage(video, 0, 0, videoCanvas.width, videoCanvas.height);
     document
@@ -137,6 +139,8 @@ function updateCapture() {
             "xlink:href",
         videoCanvas.toDataURL("image/png")
     );
+    midLayer = videoCanvas.toDataURL("image/png")
+
     ctx.filter = "blur(4px) grayscale(100%) brightness(190%) contrast(120)";
     ctx.drawImage(video, 0, 0, videoCanvas.width, videoCanvas.height);
     document
@@ -146,6 +150,7 @@ function updateCapture() {
             "xlink:href",
         videoCanvas.toDataURL("image/png")
     );
+    darkLayer = videoCanvas.toDataURL("image/png")
 }
 
 document.getElementById('chooseCharacter').addEventListener('click', () => {
@@ -174,6 +179,7 @@ document.getElementById('captureCharacterBtn').addEventListener('click', () => {
     // previewImg.src = videoCanvas.toDataURL('image/jpg')
     
     clearInterval(myInterval)
+    
     // let img = new Image()
     
     // ctx.drawImage(video, 0, 0)
@@ -206,7 +212,7 @@ document.getElementById('confirmCaptureBtn').addEventListener('click', () => {
     previewImg.src = previewImgSrc
     //document.getElementById('story').appendChild(previewImg)
     //previewImg.src = videoCanvas.toDataURL('image/jpg')
-    socket.emit('sendComic', { image64: previewImgSrc, prompt: comicPrompt });
+    socket.emit('sendComic', { image64: {lightLayer, midLayer, darkLayer}, prompt: userPrompt });
 
     // hide confirm capture page
     document.getElementById('capture').style.display = 'none'
