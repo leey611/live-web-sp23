@@ -57,9 +57,18 @@ section {
     background: dodgerblue;
 }
 
+#welcome{
+background-color: rgb(107, 206, 255) !important;
+}
 .content{
     margin: 5% 10%;
     text-align: center;
+    background-color: white;
+    padding-top: 1rem;
+    padding-bottom: 5rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    border-radius: 1rem;
 }
 
 .headerSpace{
@@ -82,7 +91,7 @@ section {
     background-Color: rgb(107, 206, 255);
     padding: 1rem 5rem;
     color:white;
-    /* font-size:30px; */
+    font-size:20px;
 }
 
 .flexBtn{
@@ -92,6 +101,8 @@ section {
     gap:0.5rem;  
     margin-top: 1rem;
     padding: 1rem 5%;
+    margin-left: 100px;
+    margin-right: 100px;
     border:5px solid rgb(36, 138, 255);
     border-radius: 1rem;
 }
