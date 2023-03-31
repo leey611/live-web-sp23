@@ -142,7 +142,7 @@ io.sockets.on('connection',
 		socket.on('enterComic', function() {
 			let bothRole = comicUsers.length < 4
 			console.log('bothRole ', bothRole)
-			io.emit('enterComic', { bothRole, comicUsers })
+			io.emit('enterComic', { bothRole, comicUsers, comicImages, comicPrompts })
 		})
 		
 		socket.on('chooseRole', function(data) {
