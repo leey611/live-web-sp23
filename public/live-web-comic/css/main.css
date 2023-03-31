@@ -60,6 +60,10 @@ section {
 #welcome{
 background-color: rgb(107, 206, 255) !important;
 }
+#story{
+    background-color: rgb(107, 206, 255) !important;
+
+}
 .content{
     margin: 20% 10%;
     text-align: center;
@@ -70,12 +74,20 @@ background-color: rgb(107, 206, 255) !important;
     padding-right: 3rem;
     border-radius: 1rem;
 }
-
+.content2{
+    margin: 20% 10%;
+    text-align: center;
+    background-color: white;
+    padding-top: 1rem;
+    padding-bottom: 3rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    border-radius: 1rem;
+}
 .headerSpace{
     padding: 1rem 0rem;
     font-size: 50px;
 }
-
 .roleBtn{
     border: white;
     border-radius: 1rem;
@@ -138,4 +150,12 @@ background-color: rgb(107, 206, 255) !important;
     bottom: 0;
     left: 0;
     right: 0;
+} */
+
+
+/* .viewText{
+    visibility: hidden;
+}
+.actorText{
+    visibility: hidden;
 } */
