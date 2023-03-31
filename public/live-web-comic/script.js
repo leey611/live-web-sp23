@@ -11,6 +11,7 @@ const video = document.querySelector("#videoContainer video");
 
 socket.on('connect', function() {
     socket.emit('enterComic', {})
+    //socket.emit('loadComic', {})
 	console.log("enter comic  " + socket.id);
 });
 
@@ -25,7 +26,10 @@ socket.on('enterComic', function(data) {
         document.getElementById('chooseCharacter').style.display = 'none'
     }
 
-    // TODO
+})
+
+socket.on('loadComic', function(data) {
+    const { comicImages, comicPrompts } = data
     if (comicImages.length) {
         for(let i = 0; i < comicImages.length; i++) {
             let comicBlock = document.createElement("div");
