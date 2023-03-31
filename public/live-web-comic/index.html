@@ -45,11 +45,15 @@
             <foreignObject class='mid' width='1000px' height='1000px' style='mask:url(#myMask3)' xmlns='http://www.w3.org/1999/xhtml'></foreignObject>
             <foreignObject class='light' width='1000px' height='1000px' style='mask:url(#myMask2)' xmlns='http://www.w3.org/1999/xhtml'></foreignObject>
         </svg>
+        <div class="container">
         <div id="videoContainer">
             <video autoplay="" playsinline=""></video>
             <canvas id="videoCanvas"></canvas>
         </div>
-        <button id="captureCharacterBtn">Take a Shot</button>
+        <button id="captureCharacterBtn" class="pictureBtn"><img src="assets/camera.png">
+            <p>Take a Shot</p>
+        </button>
+    </div>
         <canvas id="comicCanvas"></canvas>
     </section>
     <section id="capture">

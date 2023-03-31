@@ -76,6 +76,15 @@ section {
     font-size:30px;
 }
 
+.pictureBtn{
+    border: white;
+    border-radius: 1rem;
+    background-Color: rgb(107, 206, 255);
+    padding: 1rem 5rem;
+    color:white;
+    /* font-size:30px; */
+}
+
 .flexBtn{
     display:flex;
     justify-content: space-evenly;
@@ -89,3 +98,20 @@ section {
 .text{
     font-size: 20px;
 }
+
+.container{
+    text-align: center;
+}
+
+/* #videoContainer{
+    padding: 0;
+    margin: auto;
+    display: block;
+    width: 800px;
+    height: 600px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+} */
