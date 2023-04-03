@@ -18,6 +18,11 @@ section {
     display: none;
 } 
 
+svg {
+    display: block;
+    margin: auto;
+}
+
 .light {
     background: #fff;
 }
