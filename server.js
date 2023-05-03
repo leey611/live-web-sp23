@@ -117,6 +117,7 @@ io.sockets.on('connection',
 			socket.broadcast.emit('addNet', data)
 		})
 		socket.on('updateNet', function(data) {
+			
 			userNets[data.id].position.x = data.x
 			userNets[data.id].position.y = data.y
 			socket.broadcast.emit('updateNet', data)

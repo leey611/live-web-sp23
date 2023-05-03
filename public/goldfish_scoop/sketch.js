@@ -133,6 +133,9 @@ function draw() {
 }
 
 function mouseMoved() {
-    net.update(createVector(mouseX,mouseY))
-    socket.emit('updateNet', { x: mouseX, y: mouseY, id: socket.id })
+    //if (mouseX <= width && mouseX >= 0 && mouseY >=0 && mouseY <= height) {
+        net.update(createVector(mouseX,mouseY))
+        socket.emit('updateNet', { x: mouseX, y: mouseY, id: socket.id })
+    //}
+    
 }
