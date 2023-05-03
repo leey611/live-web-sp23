@@ -218,6 +218,7 @@ io.sockets.on('connection',
 
 		socket.on('disconnect', function() {
 			console.log("Client has disconnected " + socket.id);
+			delete userNets[socket.id]
 			socket.broadcast.emit('removeNet', { id: socket.id })
 		});
 	}
