@@ -103,15 +103,6 @@ function setup() {
     cohesionSlider = 0//createSlider(0, 2, 1, 0.1);
     separationSlider = 1//createSlider(0, 2, 2, 0.1);
 	
-    
-	// for(let i=0; i<fishCount; i++) {
-	//     fishes.push(new Fish(
-	// 					createVector(random(200,width-200), random(200, height-200)),
-	// 					from,
-	// 					to,
-	// 				)
-	// 			)
-	// }
 }
 
 function draw() {
