@@ -73,6 +73,8 @@ const comicPrompts = [`A Man and His Cupcake
 					  `The Man's Unexpected Move
 					  Feeling bad for the pigeon, the man decided to give it the cupcake. The pigeon happily flew away with the cupcake in its beak, while the man was left standing there, empty-handed and confused.`]
 
+let userNets = {}
+let fishes = []
 
 // Register a callback function to run when we have an individual connection
 // This is run for each individual user that connects
@@ -91,6 +93,33 @@ io.sockets.on('connection',
 			let bothRole = comicUsers.length < 4
 			socket.broadcast.emit('enterComic', { bothRole })
 			//socket.broadcast.emit('userConnect', {id: socket.id});
+			//socket.broadcast.emit('enterPool', { nets: userNets, fishes })
+		})
+
+		// user enterPool
+		socket.on('enterPool', function(data) {
+			console.log('enter pool server')
+			socket.emit('enterPool', { nets: userNets, fishes })
+			//io.emit('enterPool', { nets: userNets, fishes })
+			//socket.broadcast.emit('newNet', )
+		})
+		socket.on('addFishes', function(data) {
+			console.log('add fishes server', data)
+			fishes = data
+		})
+		socket.on('updateFishes', function(data) {
+			fishes = data
+			io.emit('updateFishes', fishes)
+		})
+		socket.on('addNet', function(data) {
+			console.log('addnet', data)
+			userNets[data.id] = data
+			socket.broadcast.emit('addNet', data)
+		})
+		socket.on('updateNet', function(data) {
+			userNets[data.id].position.x = data.x
+			userNets[data.id].position.y = data.y
+			socket.broadcast.emit('updateNet', data)
 		})
 
 		// user mouse event
@@ -189,6 +218,7 @@ io.sockets.on('connection',
 
 		socket.on('disconnect', function() {
 			console.log("Client has disconnected " + socket.id);
+			socket.broadcast.emit('removeNet', { id: socket.id })
 		});
 	}
 );
