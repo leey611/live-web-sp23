@@ -172,39 +172,32 @@ class Fish {
 			// }
 			// pop()
 	
-			push()
-			rotate(radians(-15))
-			for(let i=0; i>-20; i-=2) {
-				let y = sin(frameCount/10+i/8) * 4
-				let sw = map(sin(frameCount/15 + i/10), -1, 1, 2, 8)
-				let clr = lerpColor(to, from, (i*-1)/20)
-				stroke(clr)
-				strokeWeight(sw)
-				point(i,y)
-			}
-			pop()
+			// push()
+			// rotate(radians(-15))
+			// for(let i=0; i>-20; i-=2) {
+			// 	let y = sin(frameCount/10+i/8) * 4
+			// 	let sw = map(sin(frameCount/15 + i/10), -1, 1, 2, 8)
+			// 	let clr = lerpColor(to, from, (i*-1)/20)
+			// 	stroke(clr)
+			// 	strokeWeight(sw)
+			// 	point(i,y)
+			// }
+			// pop()
 	
-			push()
-			rotate(radians(15))
-			for(let i=0; i>-20; i-=2) {
-				let y = sin(frameCount/10+i/8) * 4
-				let sw = map(sin(frameCount/15 + i/10), -1, 1, 2, 8)
-				let clr = lerpColor(to, from, (i*-1)/20)
-				stroke(clr)
-				strokeWeight(sw)
-				point(i,y)
-			}
-			pop()
+
+      
 	
 			push()
 			for(let i=0; i<20; i+=2) {
 				let x = i
-				let sw = (map(sin(i/8), -1, 1, 0,1)+0.01) * 30
+				let sw = (map(sin(i/8), -1, 1, 0,1)+0.01) * 20
 				let y = sin(frameCount/10+i/20) * 3
 				let clr = lerpColor(from, to, i/20)
 				stroke(clr)
 				strokeWeight(sw)
 				point(x, y)
+        strokeWeight(map(sin(frameCount/15 + i/10), -1, 1, 2, 8))
+        point(x*-1,y)
 			}
 			pop()
 		pop()

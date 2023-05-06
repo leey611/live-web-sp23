@@ -1,6 +1,7 @@
 //7bdff2-b2f7ef-eff7f6-f7d6e0-f2b5d4
-const colors = "7bdff2-b2f7ef-eff7f6-f7d6e0-f2b5d4".split("-").map(a => "#"+a)
+const colors = "f49097-dfb2f4-f5e960-f2f5ff-55d6c2".split("-").map(a => "#"+a)
 const colors2 = "ffac81-ff928b-fec3a6-efe9ae-cdeac0".split("-").map(a => "#"+a)
+const netColors = "fee440-0ead69-c1121f-00a6fb".split("-").map(a => "#"+a)
 let from, to
 let net
 let fishCount = 30
@@ -14,7 +15,7 @@ socket.on('connect', function() {
     console.log('connect!!')
     socket.emit('enterPool', {})
     //console.log(net,net.id)
-    net = new Net(createVector(mouseX,mouseY), "#F9E900", socket.id)
+    net = new Net(createVector(mouseX,mouseY), random(netColors), socket.id)
     socket.emit('addNet', net)
 });
 socket.on('enterPool', function(data) {
@@ -51,8 +52,8 @@ socket.on('enterPool', function(data) {
                             createVector(),
                             0.2,
                             5,
-                            from,
-                            to,
+                            color(random(colors)),//from,
+                            color(random(colors2))//to,
                         )
                     )
         }
@@ -96,8 +97,8 @@ function setup() {
 	noFill()
 	windowCenter = createVector(width/2, height/2)
 	//noCursor()
-	from = color(colors[0])
-	to = color(colors[colors.length-1])
+	//from = color(colors[0])
+	//to = color(colors[colors.length-1])
 	
 	alignSlider = 1.5//createSlider(0, 2, 1.5, 0.1);
     cohesionSlider = 0//createSlider(0, 2, 1, 0.1);
@@ -110,7 +111,9 @@ function draw() {
 	for(let i in nets) {
         nets[i].show()
     }
-	net.show()
+    if (net) {
+        net.show()
+    }
 	//console.log('show fishes', fishes)
 	fishes.forEach(f => {
 		f.edges(windowCenter)
