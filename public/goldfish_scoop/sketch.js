@@ -123,7 +123,10 @@ function draw() {
 	})
 
 	fishes = fishes.filter(f => !f.isCaught)
-	socket.emit('updateFishes', fishes)
+    if (frameCount % 100 === 0) {
+        socket.emit('updateFishes', fishes)
+    }
+	
 }
 
 function mouseMoved() {
